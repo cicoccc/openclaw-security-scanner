@@ -7,18 +7,25 @@
 
 [English](#english) | [简体中文](#简体中文)
 
-**专业的 OpenClaw/Clawdbot 安全配置扫描工具 | Professional security scanner for OpenClaw/Clawdbot**
+**OpenClaw/Claude Code Skill | 专业的安全配置扫描工具**
+
+**Professional security scanner for OpenClaw/Clawdbot**
 
 </div>
 
 > **项目别名 | Also known as:**
 > 本工具支持所有版本：Moltbot / Clawdbot / OpenClaw
+>
+> **使用方式 | Usage:**
+> ✅ OpenClaw Skill | ✅ Claude Code Skill | ✅ 独立脚本 Standalone Scripts
 
 ---
 
 ## 简体中文
 
-一键检查你的 OpenClaw 配置是否安全，防止配置不当导致被黑客监控。
+**OpenClaw 安全配置扫描 Skill** - 一键检查你的 OpenClaw 配置是否安全，防止配置不当导致被黑客监控。
+
+可作为 **OpenClaw Skill** 或 **Claude Code Skill** 在对话中直接调用，也可作为独立脚本使用。
 
 ### 😱 为什么需要这个工具？
 
@@ -45,6 +52,36 @@
 - 🚀 **开箱即用** - 无需安装额外依赖
 
 ### 🚀 快速开始
+
+#### 方式一：作为 OpenClaw Skill 使用（推荐）
+
+**在 Claude Code 中使用：**
+
+1. 克隆仓库到本地：
+```bash
+git clone https://github.com/cicoccc/openclaw-security-scanner.git ~/openclaw-security-scanner
+```
+
+2. 在 Claude Code 对话中直接调用：
+```
+请帮我运行 OpenClaw 安全扫描
+```
+
+Claude Code 会自动识别这个 Skill 并执行安全检查。
+
+**在 OpenClaw 中使用：**
+
+克隆后，OpenClaw 可以通过 Skill 系统自动发现和调用：
+```bash
+git clone https://github.com/cicoccc/openclaw-security-scanner.git ~/.openclaw/skills/security-scanner
+```
+
+然后在对话中说：
+```
+检查我的 OpenClaw 安全配置
+```
+
+#### 方式二：作为独立脚本使用
 
 ```bash
 # 1. 克隆仓库
@@ -170,7 +207,9 @@ openclaw gateway restart
 
 ## English
 
-One-click security scanner for your OpenClaw configuration to prevent unauthorized access and data leaks.
+**OpenClaw Security Scanner Skill** - One-click security scanner for your OpenClaw configuration to prevent unauthorized access and data leaks.
+
+Can be used as an **OpenClaw Skill** or **Claude Code Skill** directly in conversations, or as standalone scripts.
 
 Based on professional security guidelines including Composio Security Guide and OpenClaw official security documentation.
 
@@ -209,6 +248,36 @@ Based on Composio's professional security framework:
 
 ### 🚀 Quick Start
 
+#### Method 1: Use as OpenClaw Skill (Recommended)
+
+**In Claude Code:**
+
+1. Clone the repository:
+```bash
+git clone https://github.com/cicoccc/openclaw-security-scanner.git ~/openclaw-security-scanner
+```
+
+2. In Claude Code conversation, simply ask:
+```
+Please run OpenClaw security scan
+```
+
+Claude Code will automatically recognize this Skill and execute the security check.
+
+**In OpenClaw:**
+
+Clone to OpenClaw skills directory:
+```bash
+git clone https://github.com/cicoccc/openclaw-security-scanner.git ~/.openclaw/skills/security-scanner
+```
+
+Then in conversation:
+```
+Check my OpenClaw security configuration
+```
+
+#### Method 2: Use as Standalone Scripts
+
 ```bash
 # Clone repository
 git clone https://github.com/cicoccc/openclaw-security-scanner.git
@@ -216,6 +285,12 @@ cd openclaw-security-scanner
 
 # Run security scan
 ./scripts/security_check.sh
+
+# Run auto-fix if issues found
+./scripts/security_fix.sh
+
+# Generate detailed report (optional)
+./scripts/security_report.sh
 ```
 
 ### Example Output
