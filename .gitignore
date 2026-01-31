@@ -1,0 +1,37 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Backups
+*.backup
+*.bak
+*~
+
+# Reports
+*_report_*.md
+
+# Logs
+*.log
+
+# Temporary files
+/tmp/
+*.tmp
+*.temp
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Node modules (如果未来添加 npm 依赖)
+node_modules/
+package-lock.json
+
+# Environment files
+.env
+.env.local
+
+# Test output
+test-output/
