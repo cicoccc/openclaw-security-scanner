@@ -1,13 +1,180 @@
 # 🛡️ OpenClaw Security Scanner v2.0
 
+<div align="center">
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Version](https://img.shields.io/badge/version-2.0-blue.svg)](https://github.com/cicoccc/openclaw-security-scanner/releases)
 
-**Professional security scanner for OpenClaw/Clawdbot** - Prevent configuration leaks and unauthorized access.
+[English](#english) | [简体中文](#简体中文)
+
+**专业的 OpenClaw/Clawdbot 安全配置扫描工具 | Professional security scanner for OpenClaw/Clawdbot**
+
+</div>
+
+> **项目别名 | Also known as:**
+> 本工具支持所有版本：Moltbot / Clawdbot / OpenClaw
+
+---
+
+## 简体中文
+
+一键检查你的 OpenClaw 配置是否安全，防止配置不当导致被黑客监控。
+
+### 😱 为什么需要这个工具？
+
+最近的安全报告显示，全球有近千台 OpenClaw 服务器因配置不当处于"裸奔"状态：
+
+- ❌ Gateway 绑定到所有地址（外网可直接访问）
+- ❌ 没有任何认证保护
+- ❌ 敏感文件权限过松
+- ❌ API Keys 明文暴露
+
+**一个配置错误，可能导致：**
+- 🔓 你的聊天记录被他人查看
+- 🔑 API Keys 被盗用，产生巨额费用
+- 💻 服务器被完全控制
+- 📱 社交账号被接管
+
+### ✨ 功能特性
+
+- 🔍 **智能检测** - 覆盖 16 项常见安全风险
+- 🎯 **风险评分** - 直观的 0-100 分评分系统
+- 🔧 **一键修复** - 自动修复发现的安全问题
+- 📄 **详细报告** - 生成可分享的 Markdown 格式报告
+- 💬 **小白友好** - 用人话解释问题，不需要技术背景
+- 🚀 **开箱即用** - 无需安装额外依赖
+
+### 🚀 快速开始
+
+```bash
+# 1. 克隆仓库
+git clone https://github.com/cicoccc/openclaw-security-scanner.git
+cd openclaw-security-scanner
+
+# 2. 运行安全检查
+./scripts/security_check.sh
+
+# 3. 如果发现问题，运行自动修复
+./scripts/security_fix.sh
+
+# 4. 生成详细报告（可选）
+./scripts/security_report.sh
+```
+
+### 📖 检查项目说明
+
+#### 🔴 主机安全 (Host Compromise)
+- Gateway 绑定配置
+- 端口监听状态
+- 认证配置
+- Docker 隔离检查
+- 版本检查
+
+#### 🟡 自动化控制 (Agency Control)
+- 工具权限审计
+- Hooks 安全检查
+- 浏览器控制审计
+- 频道访问策略
+
+#### 🔵 凭证保护 (Credential Leakage)
+- **明文 API Keys 扫描**（最重要！）
+- Credentials 目录权限
+- 配置文件权限
+- 会话历史文件权限
+- 日志文件权限
+- 插件白名单
+- Tailscale 配置
+
+### 📊 评分说明
+
+- **90-100 分**: ✨ 优秀 - 配置非常安全
+- **70-89 分**: 👍 良好 - 有小问题需要优化
+- **50-69 分**: ⚠️ 需要改进 - 存在中等风险
+- **0-49 分**: 🚨 危险 - 请立即修复！
+
+### 💡 常见问题
+
+**Q: 这个工具安全吗？会不会上传我的数据？**
+
+A: 完全安全！所有检查都在本地进行，不会上传任何数据。代码开源，可以自行审查。
+
+**Q: 检查脚本会修改我的配置吗？**
+
+A: 不会。`security_check.sh` 只检查不修改。只有运行 `security_fix.sh` 并手动确认后才会修改配置。
+
+**Q: 我已经用了官方的 `openclaw security audit`，还需要这个吗？**
+
+A: 两个工具可以互补：
+- 官方工具：专业、全面、技术性强
+- 本工具：简单、直观、自动修复
+
+**Q: 多久运行一次检查？**
+
+A: 建议：
+- 首次部署后立即检查
+- 每次修改配置后检查
+- 每周定期检查一次
+
+### 🛠️ 手动修复指南
+
+如果不想用自动修复，也可以手动操作：
+
+#### 修复 Gateway 绑定
+```bash
+openclaw config set gateway.bind loopback
+openclaw gateway restart
+```
+
+#### 启用认证
+```bash
+openclaw config set gateway.auth.mode token
+openclaw config set gateway.auth.token "你的随机token"
+openclaw gateway restart
+```
+
+#### 修复文件权限
+```bash
+chmod 700 ~/.openclaw/credentials
+chmod 600 ~/.openclaw/openclaw.json
+```
+
+#### 设置插件白名单
+```bash
+openclaw config set plugins.allow '["feishu","imessage","memory-core"]'
+openclaw gateway restart
+```
+
+### 🤝 贡献
+
+欢迎提交 Issue 和 Pull Request！
+
+如果你有好的想法或发现了 bug，请：
+1. 提交 [Issue](https://github.com/cicoccc/openclaw-security-scanner/issues)
+2. Fork 仓库并提交 PR
+3. 在 [讨论区](https://github.com/cicoccc/openclaw-security-scanner/discussions) 分享经验
+
+### 📞 获得帮助
+
+- 📖 查看 [Wiki](https://github.com/cicoccc/openclaw-security-scanner/wiki)
+- 💬 加入 [讨论](https://github.com/cicoccc/openclaw-security-scanner/discussions)
+- 🐛 报告 [Bug](https://github.com/cicoccc/openclaw-security-scanner/issues)
+
+### 🙏 致谢
+
+基于专业安全指南：
+- [Composio Security Guide](https://composio.dev/blog/secure-moltbot-clawdbot-setup-composio)
+- [OpenClaw Official Security Documentation](https://docs.openclaw.ai/gateway/security)
+- OpenClaw 项目和所有安全研究者的贡献
+
+---
+
+## English
+
+One-click security scanner for your OpenClaw configuration to prevent unauthorized access and data leaks.
 
 Based on professional security guidelines including Composio Security Guide and OpenClaw official security documentation.
 
-## 😱 Why You Need This
+### 😱 Why You Need This
 
 Recent security reports show **1,800+ exposed OpenClaw instances** due to misconfiguration:
 
@@ -22,9 +189,9 @@ Recent security reports show **1,800+ exposed OpenClaw instances** due to miscon
 - 💻 Complete server control
 - 📱 Social accounts hijacked
 
-## ✨ Features
+### ✨ Features
 
-### 🎯 Three-Tier Risk Classification
+#### 🎯 Three-Tier Risk Classification
 
 Based on Composio's professional security framework:
 
@@ -32,7 +199,7 @@ Based on Composio's professional security framework:
 - 🟡 **Agency Control** - Tool permissions, hooks, browser automation
 - 🔵 **Credential Leakage** - API keys, file permissions, session data
 
-### 🔍 16 Comprehensive Checks
+#### 🔍 16 Comprehensive Checks
 
 | Category | Checks | Critical Items |
 |----------|--------|----------------|
@@ -40,9 +207,7 @@ Based on Composio's professional security framework:
 | **Agency Control** | 4 checks | Tools permissions, Hooks, Browser, Channel policies |
 | **Credential Protection** | 7 checks | **Plaintext keys**, File perms, Sessions, Logs, Plugins |
 
-## 🚀 Quick Start
-
-### Installation
+### 🚀 Quick Start
 
 ```bash
 # Clone repository
@@ -108,9 +273,9 @@ Based on Professional Security Guidelines
   🔵 凭证泄露风险: 2
 ```
 
-## 📖 Usage
+### 📖 Usage
 
-### 🔍 Security Scan
+#### 🔍 Security Scan
 
 ```bash
 ./scripts/security_check.sh
@@ -121,7 +286,7 @@ Returns exit codes:
 - `1` - Warnings found
 - `2` - Critical issues found
 
-### 🔧 Auto-Fix
+#### 🔧 Auto-Fix
 
 ```bash
 ./scripts/security_fix.sh
@@ -134,7 +299,7 @@ Automatically fixes:
 - Plugin whitelist
 - Credentials protection
 
-### 📄 Generate Report
+#### 📄 Generate Report
 
 ```bash
 ./scripts/security_report.sh
@@ -146,9 +311,9 @@ Creates detailed Markdown report with:
 - Security best practices
 - Compliance checklist
 
-## 🔍 Security Checks
+### 🔍 Security Checks
 
-### 🔴 Host Compromise (Critical)
+#### 🔴 Host Compromise (Critical)
 
 | Check | Risk | Impact |
 |-------|------|--------|
@@ -158,7 +323,7 @@ Creates detailed Markdown report with:
 | No Docker isolation | ⚠️  Warning | Limited containment |
 | Old version (< v2026.1.29) | ⚠️  Warning | No mandatory password |
 
-### 🟡 Agency Control (Medium)
+#### 🟡 Agency Control (Medium)
 
 | Check | Risk | Impact |
 |-------|------|--------|
@@ -167,7 +332,7 @@ Creates detailed Markdown report with:
 | Browser control enabled | ⚠️  Warning | Can access sensitive sites |
 | Open channel policies | ⚠️  Warning | Anyone can message bot |
 
-### 🔵 Credential Leakage (High)
+#### 🔵 Credential Leakage (High)
 
 | Check | Risk | Impact |
 |-------|------|--------|
@@ -178,7 +343,7 @@ Creates detailed Markdown report with:
 | Log files perms | ⚠️  Warning | Debugging info exposed |
 | No plugin whitelist | ⚠️  Warning | Malicious plugins can steal |
 
-## 📊 Scoring System
+### 📊 Scoring System
 
 | Score | Grade | Recommendation |
 |-------|-------|----------------|
@@ -187,9 +352,9 @@ Creates detailed Markdown report with:
 | 50-69 | ⚠️  Needs Improvement | Medium risks, fix soon |
 | 0-49 | 🚨 Critical | **Fix immediately!** |
 
-## 💡 Common Issues & Fixes
+### 💡 Common Issues & Fixes
 
-### Issue 1: Plaintext API Keys Detected
+#### Issue 1: Plaintext API Keys Detected
 
 **Risk:** 🔴 Critical - Keys can be stolen
 
@@ -203,7 +368,7 @@ export ANTHROPIC_API_KEY="sk-ant-..."
 openclaw config set auth.profiles.openai.mode env
 ```
 
-### Issue 2: No Docker Isolation
+#### Issue 2: No Docker Isolation
 
 **Risk:** ⚠️  Warning - Limited attack containment
 
@@ -213,7 +378,7 @@ openclaw config set auth.profiles.openai.mode env
 docker run -v ~/.openclaw:/root/.openclaw openclaw/openclaw
 ```
 
-### Issue 3: Gateway Exposed
+#### Issue 3: Gateway Exposed
 
 **Risk:** 🔴 Critical - Public internet access
 
@@ -227,9 +392,9 @@ openclaw gateway restart
 ./scripts/security_fix.sh
 ```
 
-## 🎓 Security Best Practices
+### 🎓 Security Best Practices
 
-### ✅ Recommended Configuration
+#### ✅ Recommended Configuration
 
 ```yaml
 gateway:
@@ -254,7 +419,7 @@ tools:
   elevated: false         # ✅ Restrict permissions
 ```
 
-### 🔒 File Permissions
+#### 🔒 File Permissions
 
 ```bash
 chmod 700 ~/.openclaw/credentials
@@ -262,7 +427,7 @@ chmod 600 ~/.openclaw/openclaw.json
 chmod 700 ~/.openclaw/logs
 ```
 
-### 🐳 Docker Deployment
+#### 🐳 Docker Deployment
 
 ```bash
 # Recommended for production
@@ -273,28 +438,28 @@ docker run -d \
   openclaw/openclaw
 ```
 
-## 🤝 Contributing
+### 🤝 Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md)
 
-## 📄 License
+### 📄 License
 
 MIT License - see [LICENSE](LICENSE)
 
-## 🙏 Acknowledgments
+### 🙏 Acknowledgments
 
 - [OpenClaw Project](https://github.com/openclaw/openclaw)
 - [Composio Security Guide](https://composio.dev/blog/secure-moltbot-clawdbot-setup-composio)
 - OpenClaw Official Security Documentation
 - Security researchers and community contributors
 
-## 📞 Support
+### 📞 Support
 
 - 📖 [Documentation](https://github.com/cicoccc/openclaw-security-scanner/wiki)
 - 💬 [Discussions](https://github.com/cicoccc/openclaw-security-scanner/discussions)
 - 🐛 [Report Issues](https://github.com/cicoccc/openclaw-security-scanner/issues)
 
-## 🔗 References
+### 🔗 References
 
 Professional security guidelines this tool is based on:
 
@@ -303,6 +468,18 @@ Professional security guidelines this tool is based on:
 - [GitHub Security Advisory](https://github.com/openclaw/openclaw/security)
 - [VentureBeat: OpenClaw Security Risks](https://venturebeat.com/security/openclaw-agentic-ai-security-risk-ciso-guide)
 - [Cisco: Personal AI Agents Security](https://blogs.cisco.com/ai/personal-ai-agents-like-openclaw-are-a-security-nightmare)
+
+---
+
+## 🏷️ Keywords & Aliases
+
+This tool supports all versions of the project:
+
+- **Moltbot** (legacy name)
+- **Clawdbot** (previous name)
+- **OpenClaw** (current name)
+
+Search tags: `moltbot security`, `clawdbot security`, `openclaw security`, `ai agent security`, `claude security scanner`, `agentic ai security`
 
 ---
 
